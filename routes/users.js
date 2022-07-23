@@ -7,10 +7,11 @@ const {
 
 router.get('/users', getUsers);
 
-router.get('/users/me',
+router.get(
+  '/users/me',
   celebrate({
     headers: Joi.object()
-      .keys({ authorization: Joi.string().required(), })
+      .keys({ authorization: Joi.string().required() })
       .unknown(true),
   }),
   getUserByID,

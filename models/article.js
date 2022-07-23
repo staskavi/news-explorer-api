@@ -26,26 +26,26 @@ const articleSchema = new mongoose.Schema({
     type: String,
     required: true,
     validate: {
-        validator(url) {
-          return validator.isURL(url);
-        },
-        message: (props) => `${props.value} is not a valid link!`,
+      validator(url) {
+        return validator.isURL(url);
       },
+      message: (props) => `${props.value} is not a valid link!`,
+    },
   },
   image: {
     type: String,
     required: true,
     validate: {
-        validator(imageUrl) {
-          return validator.isURL(imageUrl);
-        },
-        message: (props) => `${props.value} is not a valid image link!`,
+      validator(imageUrl) {
+        return validator.isURL(imageUrl);
       },
+      message: (props) => `${props.value} is not a valid image link!`,
+    },
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
-    required: true
+    required: true,
   },
 });
 

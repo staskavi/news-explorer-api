@@ -5,9 +5,10 @@ const { login } = require('../controllers/users');
 router.post(
   '/signin',
   celebrate({
-      body: Joi.object().keys({
+    body: Joi.object().keys({
       email: Joi.string().required().email(),
-      password: Joi.string().alphanum().min(3).max(8).required(),
+      password: Joi.string().alphanum().min(3).max(8)
+        .required(),
     }),
   }),
   login,

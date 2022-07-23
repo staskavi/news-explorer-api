@@ -7,14 +7,15 @@ const {
 
 router.get('/articles', getArticles);
 
-router.post('/articles',
+router.post(
+  '/articles',
   celebrate({
     headers: Joi.object()
       .keys({
         authorization: Joi.string().required(),
       })
       .unknown(true),
-      body: Joi.object().keys({
+    body: Joi.object().keys({
       name: Joi.string().required().min(2).max(30),
       link: Joi.string().required().uri(),
     }),
@@ -22,15 +23,16 @@ router.post('/articles',
   addArticle,
 );
 
-router.delete('/articles/:articleId',
+router.delete(
+  '/articles/:articleId',
   celebrate({
     headers: Joi.object()
       .keys({
         authorization: Joi.string().required(),
       })
       .unknown(true),
-      params: Joi.object().keys({
-      id: Joi.string().hex().required(),
+    params: Joi.object().keys({
+      articleId: Joi.string().hex().required(),
     }),
   }),
   removeArticle,

@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 const jwt = require('jsonwebtoken');
-const UnauthorizedError = require('../errors/unauthorizedError');//401
-const dotenv = require("dotenv");
+const dotenv = require('dotenv');
+const UnauthorizedError = require('../errors/unauthorizedError');// 401
 
 dotenv.config();
 

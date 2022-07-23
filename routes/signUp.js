@@ -5,10 +5,11 @@ const { createUser } = require('../controllers/users');
 router.post(
   '/signup',
   celebrate({
-      body: Joi.object().keys({
+    body: Joi.object().keys({
       name: Joi.string().min(2).max(30).required(),
       email: Joi.string().required().email(),
-      password: Joi.string().alphanum().min(3).max(8).required(),
+      password: Joi.string().alphanum().min(3).max(8)
+        .required(),
     }),
   }),
   createUser,

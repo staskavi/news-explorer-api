@@ -1,14 +1,14 @@
 const Article = require('../models/article');
 const errorStatuses = require('../utils/errorStatuses');
-const BadRequestError = require('../errors/badRequestError');//400
-const NotFoundError = require('../errors/notFoundError');//404
-const ForbiddenError = require('../errors/forbiddenError');//409
+const BadRequestError = require('../errors/badRequestError');// 400
+const NotFoundError = require('../errors/notFoundError');// 404
+const ForbiddenError = require('../errors/forbiddenError');// 403
 
 const getArticles = (req, res, next) => {
   Article.find({})
     .then((articles) => res.status(errorStatuses.OK).send(articles))
     .catch(() => {
-      throw new NotFoundError("No articles found");
+      throw new NotFoundError('No articles found');
     })
     .catch(next);
 };
@@ -32,7 +32,7 @@ const addArticle = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        throw new BadRequestError("Bad request");
+        throw new BadRequestError('Bad request');
       }
     })
     .catch(next);
@@ -44,14 +44,14 @@ const removeArticle = (req, res, next) => {
     .select('+owner')
     .then((article) => {
       if (!article) {
-        throw new NotFoundError("No articles found");
+        throw new NotFoundError('No articles found');
       }
       if (article.owner.toString() === req.user._id.toString()) {
         Article.deleteOne(article).then((deletedArticle) => {
           res.status(errorStatuses.OK).send(deletedArticle);
         });
       } else {
-        throw new ForbiddenError("Not allowed");
+        throw new ForbiddenError('Not allowed');
       }
     })
     .catch(next);

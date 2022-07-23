@@ -1,11 +1,11 @@
 const bcrypt = require('bcryptjs');
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const errorStatuses = require('../utils/errorStatuses');
-const BadRequestError = require('../errors/badRequestError');//400
-const UnauthorizedError = require('../errors/unauthorizedError');//401
-const NotFoundError = require('../errors/notFoundError');//404
-const UserExistsError = require('../errors/userExistsError');//409
+const BadRequestError = require('../errors/badRequestError');// 400
+const UnauthorizedError = require('../errors/unauthorizedError');// 401
+const NotFoundError = require('../errors/notFoundError');// 404
+const ConflictError = require('../errors/conflictError');// 409
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
@@ -54,15 +54,14 @@ const createUser = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-      throw new BadRequestError('E-mail and password are required');
-    } else if (err.code === 409) {
-        throw new UserExistsError('User is already exists');
+        throw new BadRequestError('E-mail and password are required');
+      } else if (err.name === 'MongoServerError') {
+        throw new ConflictError('User/Mail is already exists');
       }
       next(err);
     })
     .catch(next);
 };
-
 
 const login = (req, res, next) => {
   const { email, password } = req.body;
@@ -91,5 +90,5 @@ const login = (req, res, next) => {
 };
 
 module.exports = {
-  getUsers, getUserByID, createUser, login
+  getUsers, getUserByID, createUser, login,
 };
