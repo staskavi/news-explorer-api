@@ -24,7 +24,7 @@ app.use(cors());
 app.options('*', cors());
 app.use(bodyParser.json());
 
-mongoose.connect(DB_ADDRESS_LOCAL);
+mongoose.connect(DB_ADDRESS_LOCAL, { useNewUrlParser: true });
 /** ****************************** */
 app.use('/', routes);
 app.get('*', () => {
