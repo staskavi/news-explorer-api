@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { validateUrl } = require('../middleware/linkValidator');
 const { Joi, celebrate } = require('celebrate');
 
 const {
