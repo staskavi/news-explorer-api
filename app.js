@@ -15,7 +15,7 @@ const { handleError } = require('./middleware/errorHandler');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const { DB_ADDRESS } = process.env;
+const { DB_ADDRESS_LOCAL } = process.env;
 app.use(requestLogger); // enabling the request logger
 // Apply the rate limiting middleware to all requests
 app.use(limiter);
@@ -24,7 +24,7 @@ app.use(cors());
 app.options('*', cors());
 app.use(bodyParser.json());
 
-mongoose.connect(DB_ADDRESS);
+mongoose.connect(DB_ADDRESS_LOCAL);
 /** ****************************** */
 app.use('/', routes);
 app.get('*', () => {
