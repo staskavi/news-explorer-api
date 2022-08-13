@@ -14,7 +14,7 @@ const limiter = require('./utils/limiterConfig');
 const { handleError } = require('./middleware/errorHandler');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 1337;
 const { DB_ADDRESS_LOCAL } = process.env;
 app.use(requestLogger); // enabling the request logger
 // Apply the rate limiting middleware to all requests
